@@ -1,0 +1,24 @@
+{
+  "name": "leaflet.odlayer",
+  "version": "1.0.0",
+  "description": "Leaflet extention to represent Origin-Destination data.",
+  "main": "src/L.ODLayer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chape1331/L.ODLayer.git"
+  },
+  "keywords": [
+    "Leaflet",
+    "Plugin",
+    "Origin-Destination"
+  ],
+  "author": "Gustavo Garcia",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/chape1331/L.ODLayer/issues"
+  },
+  "homepage": "https://github.com/chape1331/L.ODLayer#readme"
+}
