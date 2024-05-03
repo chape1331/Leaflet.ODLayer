@@ -24,7 +24,7 @@ L.ODLayer = L.GeoJSON.extend({
     _defaultPointStyle: {
         radius: 8,
         fillColor: "#1f78b4",
-        fillColorSelected: "red", 
+        fillColorSelected: ["red"], 
         color: "black",
         weight: 2,
         opacity: 1.0,
@@ -108,8 +108,14 @@ L.ODLayer = L.GeoJSON.extend({
             if (layer instanceof L.CircleMarker) {
                 let id = layer.feature.properties[attributes.id];
                 let style = Object.assign({}, pointStyle);
-                if (this._selectedIds.indexOf(id) != -1) 
-                    style.fillColor = style.fillColorSelected;
+                let index = this._selectedIds.indexOf(id); 
+                if (index != -1) {                    
+                    index = index % style.fillColorSelected.length;
+                    let fillColor = style.fillColorSelected[index];
+                    style.fillColor = fillColor;
+                    style.radius = style.radius * 2;
+                    layer.bringToFront();
+                }
                 layer.setStyle(style);
             } else if (layer instanceof L.Polyline) {
                 let from = layer.properties.from;
@@ -145,6 +151,8 @@ L.ODLayer = L.GeoJSON.extend({
     _validateStyles: function() {
         // Point style
         let style = this.options.pointStyle;
+        if (typeof(style.fillColorSelected) == "string") style.fillColorSelected = [style.fillColorSelected]
+
         if (style == null | style == undefined) style = Object.assign({}, this._defaultPointStyle);
         else {
             for (key in this._defaultPointStyle){
@@ -202,6 +210,20 @@ L.ODLayer = L.GeoJSON.extend({
 
         this.setStyle();
     },
+
+    getSelected: function() {
+        let selection = {};
+        let style = this.options.pointStyle;
+
+        for (i in this._selectedIds) {
+            let item = this._selectedIds[i];
+            let index = this._selectedIds.indexOf(item);
+            index = index % style.fillColorSelected.length;
+            selection[item] = style.fillColorSelected[index]; 
+        }
+
+        return selection;
+    }
 });
 
 L.odLayer = function (geojson, options) {
