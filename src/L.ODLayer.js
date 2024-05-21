@@ -142,7 +142,7 @@ L.ODLayer = L.GeoJSON.extend({
         let attributes = this.options.attributes;
         if (attributes == null | attributes == undefined) attributes = Object.assign({}, this._defaultAttributes);
         else {
-            for (key in this._defaultAttributes){
+            for (let key in this._defaultAttributes){
                 if (!(key in attributes)) attributes[key] = this._defaultAttributes[key];
             }
         }
@@ -155,7 +155,7 @@ L.ODLayer = L.GeoJSON.extend({
 
         if (style == null | style == undefined) style = Object.assign({}, this._defaultPointStyle);
         else {
-            for (key in this._defaultPointStyle){
+            for (let key in this._defaultPointStyle){
                 if (!(key in style)) style[key] = this._defaultPointStyle[key];
             }
         }
@@ -164,7 +164,7 @@ L.ODLayer = L.GeoJSON.extend({
         style = this.options.lineStyle;
         if (style == null | style == undefined) style = Object.assign({}, this._defaultLineStyle);
         else {
-            for (key in this._defaultLineStyle){
+            for (let key in this._defaultLineStyle){
                 if (!(key in style)) style[key] = this._defaultLineStyle[key];
             }
         }
@@ -215,7 +215,7 @@ L.ODLayer = L.GeoJSON.extend({
         let selection = {};
         let style = this.options.pointStyle;
 
-        for (i in this._selectedIds) {
+        for (let i in this._selectedIds) {
             let item = this._selectedIds[i];
             let index = this._selectedIds.indexOf(item);
             index = index % style.fillColorSelected.length;
